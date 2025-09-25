@@ -26,17 +26,20 @@ runs:
     - name: Install GitHub Copilot CLI
       shell: bash
       run: |
-        npm install -g @github/copilot
+        # Install the latest version of GitHub Copilot CLI
+        # Using @latest explicitly due to rapid development of this package
+        npm install -g @github/copilot@latest
         
     - name: Execute Copilot CLI
       id: copilot-cli
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.PAT }}
+        COPILOT_PROMPT: ${{ inputs.prompt }}
       run: |
         # Capture the output of the copilot command
         set +e  # Don't exit on error to capture both success and error cases
-        output=$(copilot -p "${{ inputs.prompt }}" 2>&1)
+        output=$(copilot -p "$COPILOT_PROMPT" 2>&1)
         exit_code=$?
         set -e
         

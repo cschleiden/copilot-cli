@@ -18,7 +18,7 @@ jobs:
       - name: Test Copilot CLI Action
         uses: ./
         with:
-          prompt: ${{ github.event.inputs.test_prompt }}
+          prompt: ${{ github.event.inputs.test_prompt || 'Write a hello world function in JavaScript' }}
           PAT: ${{ secrets.GITHUB_TOKEN }}
         id: copilot-test
         
